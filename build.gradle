@@ -1,0 +1,41 @@
+plugins {
+    id 'java'
+    id 'application'
+    id "com.diffplug.spotless" version "8.4.0"
+}
+
+group = 'calculator'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:6.0.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
+
+application {
+    mainClass = 'calculator.Main'
+}
+
+
+spotless {
+    java {
+        googleJavaFormat().aosp().reflowLongStrings()
+
+        removeUnusedImports()
+    }
+}
